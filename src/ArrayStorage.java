@@ -5,19 +5,17 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
 
-    Resume[] storage = new Resume[10000];
-    int size = 0;
-    int count = 0;
+    private Resume[] storage = new Resume[10000];
+    private int size = 0;
+    private int count = 0;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    void save(Resume r) {
-
-        boolean isResumeExist = isResumeExist(r);
-
+    void save(Resume resume) {
+        boolean isResumeExist = isResumeExist(resume);
         if(isResumeExist) {
             System.out.println("Resume exist!");
         }
@@ -25,50 +23,37 @@ public class ArrayStorage {
             System.out.println("Array is filled!");
         }
         if(!isResumeExist && size < 10000) {
-            storage[size] = r;
+            storage[size] = resume;
             size++;
         }
     }
 
     void update(Resume resume) {
-
         boolean isResumeExist = isResumeExist(resume);
-
         if(isResumeExist) {
             storage[count] = resume;
         } else {
             System.out.println("Resume not exist!");
         }
-
     }
 
     Resume get(String uuid) {
-
         boolean isResumeExist = isResumeExist(uuid);
-
         if(isResumeExist) {
             return storage[count];
         }
-        else {
-            System.out.println("Resume not exist!");
-            return null;
-        }
-
+        System.out.println("Resume not exist!");
+        return null;
     }
 
     void delete(String uuid) {
-
         boolean isResumeExist = isResumeExist(uuid);
-
         if (isResumeExist) {
             System.arraycopy(storage, count + 1, storage, count, size - count - 1);
             size--;
-        }
-
-        else {
+        } else {
             System.out.println("Resume not exist!");
         }
-
     }
 
     /**
@@ -95,15 +80,9 @@ public class ArrayStorage {
     }
 
     private boolean isResumeExist (String incUuid) {
-        boolean result = false;
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(incUuid)) {
-                count = i;
-                result = true;
-                break;
-            }
-        }
-        return result;
+        Resume resume = new Resume();
+        resume.uuid = incUuid;
+        return isResumeExist (resume);
     }
 
 }
