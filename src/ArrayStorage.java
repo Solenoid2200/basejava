@@ -14,8 +14,17 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[size] = r;
-        size++;
+        boolean isUuid = false;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(r.uuid)) {
+                isUuid = true;
+                break;
+            }
+        }
+        if(!isUuid) {
+            storage[size] = r;
+            size++;
+        }
     }
 
     void update(Resume resume) {
