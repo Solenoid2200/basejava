@@ -21,7 +21,7 @@ public class ArrayStorage {
                 break;
             }
         }
-        if(!isUuid) {
+        if(!isUuid && size < 10000) {
             storage[size] = r;
             size++;
         }
