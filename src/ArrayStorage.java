@@ -18,21 +18,17 @@ public class ArrayStorage {
             System.out.println("Array is filled!");
             return;
         }
-        for (int i = 0; i < size; i++) {
-            if(resume.equals(storage[i])) {
-                System.out.println("Resume exist!");
-                return;
-            }
+        if(isResumeExist(resume.uuid)) {
+            System.out.println("Resume exist!");
+            return;
         }
         storage[size] = resume;
         size++;
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if(uuid.equals(storage[i].uuid)) {
-                return storage[i] ;
-            }
+        if(isResumeExist(uuid)) {
+            return storage[findResumeNumber(uuid)];
         }
         System.out.println("Resume not exist!");
         return null;
@@ -46,29 +42,48 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if(resume.equals(storage[i])) {
-                storage[i] = resume;
-                return;
-            }
+        if(isResumeExist(resume.uuid)) {
+            storage[findResumeNumber(resume.uuid)] = resume;
+            return;
         }
         System.out.println("Resume not exist!");
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if(uuid.equals(storage[i].uuid)) {
-                storage[i] = storage[size-1];
-                storage[size-1] = null;
-                size--;
-                return;
-            }
+        if(isResumeExist(uuid)) {
+            int i = findResumeNumber(uuid);
+            storage[i] = storage[size-1];
+            storage[size-1] = null;
+            size--;
+            return;
         }
         System.out.println("Resume not exist!");
     }
 
     int size() {
         return size;
+    }
+
+    private boolean isResumeExist (String incUuid) {
+        boolean result = false;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(incUuid)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private int findResumeNumber (String incUuid) {
+        int result = 0;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(incUuid)) {
+                result = i;
+                break;
+            }
+        }
+        return result;
     }
 
 }
