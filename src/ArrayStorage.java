@@ -18,7 +18,7 @@ public class ArrayStorage {
             System.out.println("Array is filled!");
             return;
         }
-        if(isResumeExist(resume.uuid)) {
+        if(findResumeNumber(resume.uuid) !=-1) {
             System.out.println("Resume exist!");
             return;
         }
@@ -27,8 +27,9 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        if(isResumeExist(uuid)) {
-            return storage[findResumeNumber(uuid)];
+        int count = findResumeNumber(uuid);
+        if(count !=-1) {
+            return storage[count];
         }
         System.out.println("Resume not exist!");
         return null;
@@ -42,18 +43,19 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        if(isResumeExist(resume.uuid)) {
-            storage[findResumeNumber(resume.uuid)] = resume;
+        int count = findResumeNumber(resume.uuid);
+        if(count !=-1) {
+            storage[count] = resume;
             return;
         }
         System.out.println("Resume not exist!");
     }
 
     void delete(String uuid) {
-        if(isResumeExist(uuid)) {
-            int i = findResumeNumber(uuid);
-            storage[i] = storage[size-1];
-            storage[size-1] = null;
+        int count = findResumeNumber(uuid);
+        if(count !=-1) {
+            storage[count] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
             return;
         }
@@ -64,19 +66,8 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean isResumeExist (String incUuid) {
-        boolean result = false;
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(incUuid)) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-
-    private int findResumeNumber (String incUuid) {
-        int result = 0;
+    private int findResumeNumber(String incUuid) {
+        int result = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(incUuid)) {
                 result = i;
