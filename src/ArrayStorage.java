@@ -14,7 +14,7 @@ public class ArrayStorage {
     }
 
     void save(Resume resume) {
-        if(size > 9999) {
+        if(size > storage.length-1) {
             System.out.println("Array is filled!");
             return;
         }
@@ -28,16 +28,6 @@ public class ArrayStorage {
         size++;
     }
 
-    void update(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if(resume.equals(storage[i])) {
-                storage[i] = resume;
-                return;
-            }
-        }
-        System.out.println("Resume not exist!");
-    }
-
     Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if(uuid.equals(storage[i].uuid)) {
@@ -46,6 +36,23 @@ public class ArrayStorage {
         }
         System.out.println("Resume not exist!");
         return null;
+    }
+
+    /**
+     * @return array, contains only Resumes in storage (without null)
+     */
+    Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
+    }
+
+    void update(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if(resume.equals(storage[i])) {
+                storage[i] = resume;
+                return;
+            }
+        }
+        System.out.println("Resume not exist!");
     }
 
     void delete(String uuid) {
@@ -58,13 +65,6 @@ public class ArrayStorage {
             }
         }
         System.out.println("Resume not exist!");
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
     }
 
     int size() {
