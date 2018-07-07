@@ -27,9 +27,9 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        int count = findResumeNumber(uuid);
-        if(count !=-1) {
-            return storage[count];
+        int index = findResumeNumber(uuid);
+        if(index !=-1) {
+            return storage[index];
         }
         System.out.println("Resume not exist!");
         return null;
@@ -43,18 +43,18 @@ public class ArrayStorage {
     }
 
     void update(Resume resume) {
-        int count = findResumeNumber(resume.uuid);
-        if(count !=-1) {
-            storage[count] = resume;
+        int index = findResumeNumber(resume.uuid);
+        if(index !=-1) {
+            storage[index] = resume;
             return;
         }
         System.out.println("Resume not exist!");
     }
 
     void delete(String uuid) {
-        int count = findResumeNumber(uuid);
-        if(count !=-1) {
-            storage[count] = storage[size - 1];
+        int index = findResumeNumber(uuid);
+        if(index !=-1) {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
             return;
