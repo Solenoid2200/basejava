@@ -1,75 +1,79 @@
+package net.schachinter.webapp.storage;
+
+import net.schachinter.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     private Resume[] storage = new Resume[10000];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    void save(Resume resume) {
+    public void save(Resume resume) {
         if(size > storage.length-1) {
             System.out.println("Array is filled!");
             return;
         }
-        if(findResumeNumber(resume.uuid) !=-1) {
-            System.out.println("Resume exist!");
+        if(getIndex(resume.getUuid()) !=-1) {
+            System.out.println("net.schachinter.webapp.model.Resume exist!");
             return;
         }
         storage[size] = resume;
         size++;
     }
 
-    Resume get(String uuid) {
-        int index = findResumeNumber(uuid);
+    public Resume get(String uuid) {
+        int index = getIndex(uuid);
         if(index !=-1) {
             return storage[index];
         }
-        System.out.println("Resume not exist!");
+        System.out.println("net.schachinter.webapp.model.Resume not exist!");
         return null;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    void update(Resume resume) {
-        int index = findResumeNumber(resume.uuid);
-        if(index !=-1) {
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if(index != -1) {
             storage[index] = resume;
             return;
         }
-        System.out.println("Resume not exist!");
+        System.out.println("net.schachinter.webapp.model.Resume not exist!");
     }
 
-    void delete(String uuid) {
-        int index = findResumeNumber(uuid);
+    public void delete(String uuid) {
+        int index = getIndex(uuid);
         if(index !=-1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
             return;
         }
-        System.out.println("Resume not exist!");
+        System.out.println("net.schachinter.webapp.model.Resume not exist!");
     }
 
-    int size() {
+    public int size() {
         return size;
     }
 
-    private int findResumeNumber(String incUuid) {
+    private int getIndex(String incUuid) {
         int result = -1;
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(incUuid)) {
+            if (storage[i].getUuid().equals(incUuid)) {
                 result = i;
                 break;
             }

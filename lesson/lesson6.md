@@ -15,6 +15,6 @@
 
 ## Домашнее задание
 - Сделать рефакторинг тестов: `saveOverflow` должно быть только для Array реализаций.
-- Рефакторинг: в конструктор Resume добавить второй параметр `fullName`
-- Сделать рефакторинг всех реализаций `Storage`: заменить метод `Resume[] getAll()` на `List<Resume> getAllSorted()`
+- Рефакторинг: в конструктор net.schachinter.webapp.model.Resume добавить второй параметр `fullName`
+- Сделать рефакторинг всех реализаций `Storage`: заменить метод `net.schachinter.webapp.model.Resume[] getAll()` на `List<net.schachinter.webapp.model.Resume> getAllSorted()`
 - Реализовать до конца `MapUuidStorage`. Подумать что еще может быть search key в реализации на основе Map.
