@@ -9,20 +9,17 @@ import java.util.Arrays;
  */
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    private Resume[] storage = new Resume[10000];
-    private int size = 0;
-
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume resume) {
-        if(size > storage.length-1) {
+        if (size > storage.length - 1) {
             System.out.println("Array is filled!");
             return;
         }
-        if(getIndex(resume.getUuid()) !=-1) {
+        if (getIndex(resume.getUuid()) != -1) {
             System.out.println("net.schachinter.webapp.model.Resume exist!");
             return;
         }
@@ -32,7 +29,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if(index !=-1) {
+        if (index != -1) {
             return storage[index];
         }
         System.out.println("net.schachinter.webapp.model.Resume not exist!");
@@ -48,7 +45,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if(index != -1) {
+        if (index != -1) {
             storage[index] = resume;
             return;
         }
@@ -57,17 +54,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if(index !=-1) {
+        if (index != -1) {
             storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
             return;
         }
         System.out.println("net.schachinter.webapp.model.Resume not exist!");
-    }
-
-    public int size() {
-        return size;
     }
 
     private int getIndex(String incUuid) {
