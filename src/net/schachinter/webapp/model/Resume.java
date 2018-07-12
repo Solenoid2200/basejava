@@ -3,17 +3,11 @@ package net.schachinter.webapp.model;
 /**
  * Resume class
  */
-public class Resume implements Comparable<Resume> {
+public class Resume implements Comparable<Resume>{
 
     // Unique identifier
     private String uuid;
 
-    @Override
-    public int compareTo(Resume resume) {
-        return uuid.compareTo(resume.uuid);
-    }
-
-    // Getters & setters
     public String getUuid() {
         return uuid;
     }
@@ -22,7 +16,6 @@ public class Resume implements Comparable<Resume> {
         this.uuid = uuid;
     }
 
-    // equals() & hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,10 +31,13 @@ public class Resume implements Comparable<Resume> {
         return uuid.hashCode();
     }
 
-    // toString()
     @Override
     public String toString() {
         return uuid;
     }
 
+    @Override
+    public int compareTo(Resume o) {
+        return uuid.compareTo(o.uuid);
+    }
 }

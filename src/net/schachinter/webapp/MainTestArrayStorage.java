@@ -7,7 +7,7 @@ import net.schachinter.webapp.storage.ArrayStorage;
  * Test for ArrayStorage
  */
 public class MainTestArrayStorage {
-    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
@@ -35,7 +35,7 @@ public class MainTestArrayStorage {
         System.out.println("Size: " + ARRAY_STORAGE.size());
     }
 
-    private static void printAll() {
+    static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.println(r);
