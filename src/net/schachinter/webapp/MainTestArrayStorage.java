@@ -1,8 +1,10 @@
+package net.schachinter.webapp;
+
 import net.schachinter.webapp.model.Resume;
 import net.schachinter.webapp.storage.ArrayStorage;
 
 /**
- * Test for com.urise.webapp.storage.net.schachinter.webapp.storage.ArrayStorage
+ * Test for ArrayStorage
  */
 public class MainTestArrayStorage {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

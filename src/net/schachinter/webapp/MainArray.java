@@ -1,3 +1,5 @@
+package net.schachinter.webapp;
+
 import net.schachinter.webapp.model.Resume;
 import net.schachinter.webapp.storage.ArrayStorage;
 import net.schachinter.webapp.storage.Storage;
@@ -7,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Test for net.schachinter.webapp.storage.ArrayStorage
+ * Test for ArrayStorage
  */
 public class MainArray {
     private final static Storage ARRAY_STORAGE = new ArrayStorage();
