@@ -20,20 +20,11 @@ public class ArrayStorage extends AbstractArrayStorage {
             return;
         }
         if (getIndex(resume.getUuid()) != -1) {
-            System.out.println("net.schachinter.webapp.model.Resume exist!");
+            System.out.println("Resume exist!");
             return;
         }
         storage[size] = resume;
         size++;
-    }
-
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index != -1) {
-            return storage[index];
-        }
-        System.out.println("net.schachinter.webapp.model.Resume not exist!");
-        return null;
     }
 
     /**
@@ -49,7 +40,7 @@ public class ArrayStorage extends AbstractArrayStorage {
             storage[index] = resume;
             return;
         }
-        System.out.println("net.schachinter.webapp.model.Resume not exist!");
+        System.out.println("Resume not exist!");
     }
 
     public void delete(String uuid) {
@@ -60,10 +51,10 @@ public class ArrayStorage extends AbstractArrayStorage {
             size--;
             return;
         }
-        System.out.println("net.schachinter.webapp.model.Resume not exist!");
+        System.out.println("Resume not exist!");
     }
 
-    private int getIndex(String incUuid) {
+    protected int getIndex(String incUuid) {
         int result = -1;
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(incUuid)) {
