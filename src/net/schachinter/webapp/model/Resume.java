@@ -1,12 +1,17 @@
 package net.schachinter.webapp.model;
 
 /**
- * net.schachinter.webapp.model.Resume class
+ * Resume class
  */
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
+
+    @Override
+    public int compareTo(Resume resume) {
+        return uuid.compareTo(resume.uuid);
+    }
 
     // Getters & setters
     public String getUuid() {
