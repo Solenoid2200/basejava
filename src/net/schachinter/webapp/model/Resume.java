@@ -1,7 +1,7 @@
 package net.schachinter.webapp.model;
 
 /**
- * Resume class
+ * Resume class !
  */
 public class Resume implements Comparable<Resume>{
 
