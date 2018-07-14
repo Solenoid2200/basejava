@@ -25,7 +25,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void deleteIndex(int index) {
-        if (size > 1) {
+        if (size > 1 && index < STORAGE_LIMIT-1) {
             System.arraycopy(storage, index + 1, storage, index, size - index - 1);
         }
     }

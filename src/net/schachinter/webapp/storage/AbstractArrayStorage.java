@@ -5,7 +5,7 @@ import net.schachinter.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    private static final int STORAGE_LIMIT = 10000;
+    static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     int size = 0;
 
