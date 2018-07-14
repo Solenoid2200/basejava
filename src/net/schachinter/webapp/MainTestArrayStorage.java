@@ -8,7 +8,7 @@ import net.schachinter.webapp.storage.SortedArrayStorage;
  * Test for ArrayStorage
  */
 public class MainTestArrayStorage {
-    static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
+    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
