@@ -1,14 +1,13 @@
 package net.schachinter.webapp;
 
 import net.schachinter.webapp.model.Resume;
-import net.schachinter.webapp.storage.ArrayStorage;
 import net.schachinter.webapp.storage.SortedArrayStorage;
 
 /**
  * Test for ArrayStorage
  */
 public class MainTestArrayStorageSorted {
-    static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r6 = new Resume();
@@ -60,11 +59,10 @@ public class MainTestArrayStorageSorted {
         printAll();
 
         System.out.println("Size: " + ARRAY_STORAGE.size());
-
         */
     }
 
-    static void printAll() {
+    private static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAll()) {
             System.out.println(r);
