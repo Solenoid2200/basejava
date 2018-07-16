@@ -8,7 +8,12 @@ import net.schachinter.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void saveIndex(Resume r, int index) {
+    protected void fillDeletedElement(int index) {
+        storage[index] = storage[size - 1];
+    }
+
+    @Override
+    protected void insertElement(Resume r, int index) {
         storage[size] = r;
     }
 
@@ -20,10 +25,5 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    @Override
-    protected void deleteIndex(int index) {
-        storage[index] = storage[size - 1];
     }
 }
