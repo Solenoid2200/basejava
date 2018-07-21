@@ -13,7 +13,7 @@
 - Реализация Storage используя <a href="https://habrahabr.ru/post/60317/">сериализацию</a>.
  
 ## NIO
-- <a href="http://www.quizful.net/post/java-nio-tutorial">NIO Java 7</a>
+- <a href="http://www.quizful.ru/post/java-nio-tutorial">NIO Java 7</a>
 - <a href="https://habrahabr.ru/post/269667/">Чтения строк из файла</a>
 
 ## Основы Java 8 Stream API

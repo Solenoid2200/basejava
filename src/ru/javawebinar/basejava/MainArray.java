@@ -1,8 +1,8 @@
-package net.schachinter.webapp;
+package ru.javawebinar.basejava;
 
-import net.schachinter.webapp.model.Resume;
-import net.schachinter.webapp.storage.ArrayStorage;
-import net.schachinter.webapp.storage.Storage;
+import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.storage.ArrayStorage;
+import ru.javawebinar.basejava.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -15,7 +15,7 @@
   - <a href="http://htmlpreview.github.io/?https://raw.githubusercontent.com/blacky0x0/java-docs-ru/master/tutorials/java/concepts/index.html">Концепции объектно-ориентированного программирования</a>
 
 ### Структура памяти: куча, стек, регистры, константы
-  - <a href="http://www.slideshare.net/kslisenko/jvm-35760825">JVM изнутри - оптимизация и профилирование</a>.
+  - <a href="http://www.slideshare.ru/kslisenko/jvm-35760825">JVM изнутри - оптимизация и профилирование</a>.
   - <a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap#24171266">Stack and Heap</a>
   - Дополнительно:
     - <a href="http://habrahabr.ru/post/117274/">Из каких частей состоит память java процесса</a>.
@@ -32,10 +32,10 @@
 
 ## Домашнее задание
 
-> Правка к видео: net.schachinter.webapp.storage.ArrayStorage.delete() - вместо `storage[i] = null` нужно `storage[size-1] = null`
+> Правка к видео: ru.javawebinar.basejava.storage.ArrayStorage.delete() - вместо `storage[i] = null` нужно `storage[size-1] = null`
 
 - Прочитать <a href="http://www.intuit.ru/studies/courses/16/16/lecture/27113?page=4">Соглашения по именованию.</a>
-- Реализовать `net.schachinter.webapp.storage.ArrayStorage.update`
-- Сделать проверки: в `update/delete/get` - резюме есть в storage, в `save`- нет в storage: `System.out.println("net.schachinter.webapp.model.Resume ...")`.
+- Реализовать `ru.javawebinar.basejava.storage.ArrayStorage.update`
+- Сделать проверки: в `update/delete/get` - резюме есть в storage, в `save`- нет в storage: `System.out.println("ru.javawebinar.basejava.model.Resume ...")`.
 - Сделать в save проверку на переполнениеe: `System.out.println("...")`.
-- Избавится от дублирования в коде `net.schachinter.webapp.storage.ArrayStorage`
+- Избавится от дублирования в коде `ru.javawebinar.basejava.storage.ArrayStorage`

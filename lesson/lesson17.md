@@ -16,7 +16,7 @@
 
 #### Spring Pet-Clinic
 - <a href="https://github.com/spring-projects/spring-petclinic">Spring PetClinic Sample Application </a>
-- <a href="http://petclinic.cloudapp.net/">Demo</a>
+- <a href="http://petclinic.cloudapp.ru/">Demo</a>
 - <a href="https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application">Presentation</a>
 
 #### Java Enterprise project Topjava

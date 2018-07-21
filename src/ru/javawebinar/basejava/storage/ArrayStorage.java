@@ -1,6 +1,6 @@
-package net.schachinter.webapp.storage;
+package ru.javawebinar.basejava.storage;
 
-import net.schachinter.webapp.model.Resume;
+import ru.javawebinar.basejava.model.Resume;
 
 /**
  * Array based storage for Resumes

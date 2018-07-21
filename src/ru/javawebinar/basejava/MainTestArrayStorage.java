@@ -1,7 +1,7 @@
-package net.schachinter.webapp;
+package ru.javawebinar.basejava;
 
-import net.schachinter.webapp.model.Resume;
-import net.schachinter.webapp.storage.ArrayStorage;
+import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.storage.ArrayStorage;
 
 /**
  * Test for ArrayStorage

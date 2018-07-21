@@ -4,7 +4,7 @@
 ## [Разбор Домашнего Задания-6](lesson6.md#Домашнее-задание)
 
 ## Параметризация. Стирание типов.
-- <a href="http://www.quizful.net/post/java-generics-tutorial">Дженерики (Java, обучающая статья)</a>
+- <a href="http://www.quizful.ru/post/java-generics-tutorial">Дженерики (Java, обучающая статья)</a>
 - <a href="http://developer.alexanderklimov.ru/android/java/generic.php">Обобщения (Generic)</a>
 - <a href="http://docs.oracle.com/javase/tutorial/java/generics/restrictions.html">Ограничения.</a>
 
@@ -23,7 +23,7 @@
 <a href="https://ru.wikipedia.org/wiki/Доменный_объект">Доменный объект</a>
 
 Cделать объектную модель резюме (диаграмма и классы). <a href="http://u-rise.com/teacherofjava.pdf">Образец резюме</a> (делаем упрощенно)
-  - Делать только классы, включаемые в net.schachinter.webapp.model.Resume. net.schachinter.webapp.model.Resume - главный класс. В него все включается (композиция - строгий вид агрегации).
+  - Делать только классы, включаемые в ru.javawebinar.basejava.model.Resume. ru.javawebinar.basejava.model.Resume - главный класс. В него все включается (композиция - строгий вид агрегации).
   - Схожие по структуре и функциональности сущности делаем одним классом.
   - Модель упрощаем для хранения только необходимой информации для вывода/ редактирования резюме.
   - В модели резюме должны быть представлены контакты и следующие разделы:
