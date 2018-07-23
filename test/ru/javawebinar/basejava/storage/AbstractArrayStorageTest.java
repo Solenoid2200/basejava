@@ -47,7 +47,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void clearIndex0Test() throws Exception {
         storage.clear();
-        Assert.assertTrue(null == storage.storage[0]);
+        Assert.assertTrue(null == storage.storage[0]); 
     }
 
     @Test
