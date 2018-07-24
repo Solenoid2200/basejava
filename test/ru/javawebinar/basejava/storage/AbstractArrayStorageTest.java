@@ -15,11 +15,12 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private Resume resume4 = new  Resume(UUID_4);
+    private Resume resume4 = new Resume(UUID_4);
 
     AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
+
     @Before
     public void testSetUp() {
         storage.save(new Resume(UUID_1));
@@ -46,7 +47,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void testUpdate() {
         storage.update(new Resume(UUID_3));
-        Assert.assertEquals(UUID_3, storage.get("uuid3").getUuid());
+        Assert.assertEquals(UUID_3, storage.get(UUID_3).getUuid());
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -56,17 +57,14 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void testGetAll() {
-        Resume[] tmp = new Resume[3];
-        tmp[0] = new Resume(UUID_1);
-        tmp[1] = new Resume(UUID_2);
-        tmp[2] = new Resume(UUID_3);
-        Assert.assertArrayEquals("Wrong Array", tmp, storage.getAll());
+        Resume[] tmp = new Resume[]{new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        Assert.assertArrayEquals(tmp, storage.getAll());
     }
 
     @Test
     public void testSave() {
         storage.save(resume4);
-        Assert.assertEquals(resume4, storage.getAll()[3]);
+        Assert.assertEquals(resume4, storage.get(UUID_4));
     }
 
     @Test
@@ -77,31 +75,21 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = ExistStorageException.class)
     public void testSaveIndexExist() {
-        Resume r = new  Resume(UUID_3);
-        storage.save(r);
+        Resume resume = new Resume(UUID_3);
+        storage.save(resume);
     }
 
     @Test(expected = StorageException.class)
-    public void testSaveStorageOverflow() {
+    public void testSaveStorageException() {
         try {
             storage.save(resume4);
         } catch (Exception e) {
             Assert.fail();
         }
-        storage.size = 9999;
-        storage.save(resume4);
-    }
-
-    @Test(expected = StorageException.class)
-    public void saveOverflow()  {
-        try {
-            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT+1; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assert.fail();
+        for (int i = 4; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
+            storage.save(new Resume("uuid" + i));
         }
-        storage.save(new Resume());
+        storage.save(resume4);
     }
 
     @Test
