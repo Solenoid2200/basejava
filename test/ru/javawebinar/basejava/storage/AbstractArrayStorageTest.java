@@ -112,5 +112,4 @@ public abstract class AbstractArrayStorageTest {
     public void testGetNotExistStorageException() {
         storage.get(UUID_4);
     }
-
 }
