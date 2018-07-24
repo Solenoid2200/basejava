@@ -40,7 +40,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void testClear() {
         storage.clear();
-        Assert.assertTrue(0 == storage.size());
+        Assert.assertEquals(0, storage.size());
     }
 
     @Test
@@ -72,17 +72,17 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void testSaveSize() {
         storage.save(resume4);
-        Assert.assertTrue(4 == storage.size());
+        Assert.assertEquals(4, storage.size());
     }
 
     @Test(expected = ExistStorageException.class)
-    public void testSaveIndexExist() throws Exception {
+    public void testSaveIndexExist() {
         Resume r = new  Resume(UUID_3);
         storage.save(r);
     }
 
     @Test(expected = StorageException.class)
-    public void saveStorageOverflowTest() {
+    public void testSaveStorageOverflow() {
         try {
             storage.save(resume4);
         } catch (Exception e) {
@@ -92,14 +92,26 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume4);
     }
 
+    @Test(expected = StorageException.class)
+    public void saveOverflow()  {
+        try {
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT+1; i++) {
+                storage.save(new Resume());
+            }
+        } catch (StorageException e) {
+            Assert.fail();
+        }
+        storage.save(new Resume());
+    }
+
     @Test
     public void testDeleteSize() {
         storage.delete(UUID_3);
-        Assert.assertTrue(2 == storage.size());
+        Assert.assertEquals(2, storage.size());
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void testDeleteNotExistStorageException() throws Exception {
+    public void testDeleteNotExistStorageException() {
         storage.delete(UUID_4);
     }
 
@@ -109,7 +121,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void testGetNotExistStorageException() throws Exception {
+    public void testGetNotExistStorageException() {
         storage.get(UUID_4);
     }
 
