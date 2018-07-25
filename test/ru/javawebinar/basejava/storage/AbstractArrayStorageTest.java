@@ -87,12 +87,11 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = StorageException.class)
     public void testSaveStorageException() {
         try {
-            storage.save(resume4);
+            for (int i = 4; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
+                storage.save(new Resume("uuid" + i));
+            }
         } catch (Exception e) {
             Assert.fail();
-        }
-        for (int i = 4; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
-            storage.save(new Resume("uuid" + i));
         }
         storage.save(resume0);
     }
