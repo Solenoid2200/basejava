@@ -110,7 +110,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void testGet() {
-        Assert.assertEquals(new Resume(UUID_1), storage.get(UUID_1));
+        Assert.assertEquals(resume1, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
