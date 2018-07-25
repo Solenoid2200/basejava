@@ -15,21 +15,26 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
+    private static final String UUID_0 = "uuid0";
+    private Resume resume1 = new Resume(UUID_1);
+    private Resume resume2 = new Resume(UUID_2);
+    private Resume resume3 = new Resume(UUID_3);
     private Resume resume4 = new Resume(UUID_4);
+    private Resume resume0 = new Resume(UUID_0);
 
     AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
     @Before
-    public void testSetUp() {
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+    public void SetUp() {
+        storage.save(resume1);
+        storage.save(resume2);
+        storage.save(resume3);
     }
 
     @After
-    public void testTearDown() {
+    public void TearDown() {
         storage.clear();
     }
 
@@ -57,8 +62,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void testGetAll() {
-        Resume[] tmp = new Resume[]{ new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3) };
-        Assert.assertArrayEquals(tmp, storage.getAll());
+        Resume[] expectedResumes = new Resume[]{ resume1, resume2, resume3 };
+        Assert.assertArrayEquals(expectedResumes, storage.getAll());
     }
 
     @Test
@@ -89,7 +94,7 @@ public abstract class AbstractArrayStorageTest {
         for (int i = 4; i < AbstractArrayStorage.STORAGE_LIMIT + 1; i++) {
             storage.save(new Resume("uuid" + i));
         }
-        storage.save(resume4);
+        storage.save(resume0);
     }
 
     @Test
