@@ -5,8 +5,11 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.List;
+import java.util.Map;
+
 public abstract class AbstractStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10000;
+    public static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
 
     public void save(Resume resume) {
@@ -21,48 +24,47 @@ public abstract class AbstractStorage implements Storage {
         }
     }
 
-    protected abstract int getIndex(String uuid);
-    protected abstract void insertElement(Resume resume, int index);
-
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            updateIndex(index, resume);
-        }
+        updateIndex(checkIndex(resume.getUuid()), resume);
     }
-
-    protected abstract void updateIndex(int index, Resume resume);
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deleteDeletedElement(index);
-            size--;
-        }
+        deleteDeletedElement(checkIndex(uuid), uuid);
+        size--;
     }
 
-    protected abstract void deleteDeletedElement(int index);
-
-    public abstract void clear();
-
-    public Resume get(String uuid){
-    int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return getResume(index);
+    public Resume get(String uuid) {
+        return getResume(checkIndex(uuid), uuid);
     }
-
-    protected abstract Resume getResume(int index);
-
-    public abstract Object getAll();
 
     public int size() {
         return size;
     }
+
+    private int checkIndex(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
+        }
+        return index;
+    }
+
+    public abstract void clear();
+
+    public abstract Resume[] getAllFromArray();
+
+    public abstract List<Resume> getAllFromList();
+
+    public abstract Map<String, Resume> getAllFromMap();
+
+    protected abstract int getIndex(String uuid);
+
+    protected abstract void insertElement(Resume resume, int index);
+
+    protected abstract void updateIndex(int index, Resume resume);
+
+    protected abstract void deleteDeletedElement(int index, String uuid);
+
+    protected abstract Resume getResume(int index, String uuid);
 }
 

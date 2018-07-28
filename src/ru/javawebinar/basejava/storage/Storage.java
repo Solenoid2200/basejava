@@ -2,6 +2,9 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.List;
+import java.util.Map;
+
 public interface Storage {
 
     void save(Resume resume);
@@ -14,7 +17,11 @@ public interface Storage {
 
     Resume get(String uuid);
 
-    Object getAll();
+    Resume[] getAllFromArray();
+
+    List<Resume> getAllFromList();
+
+    Map<String, Resume> getAllFromMap();
 
     int size();
 }

@@ -2,6 +2,8 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.List;
+
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
@@ -17,6 +19,11 @@ public class ArrayStorage extends AbstractArrayStorage {
     @Override
     protected void insertElement(Resume resume, int index) {
         storage[size] = resume;
+    }
+
+    @Override
+    public List<Resume> getAllFromList() {
+        return null;
     }
 
     @Override

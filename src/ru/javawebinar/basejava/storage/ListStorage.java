@@ -4,6 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ListStorage extends AbstractStorage {
     public List<Resume> storage = new ArrayList<>();
@@ -25,30 +26,37 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void updateIndex(int index, Resume resume) {
-        storage.remove(index);
-        storage.add(index, resume);
+        storage.set(index, resume);
     }
 
     @Override
-    protected void deleteDeletedElement(int index) {
+    protected void deleteDeletedElement(int index, String uuid) {
         storage.remove(index);
     }
 
     @Override
     public void clear() {
-        if (!storage.isEmpty()) {
-            storage.clear();
-            size = 0;
-        }
+        storage.clear();
+        size = 0;
     }
 
     @Override
-    protected Resume getResume(int index) {
+    protected Resume getResume(int index, String uuid) {
         return storage.get(index);
     }
 
     @Override
-    public List<Resume> getAll() {
-        return new ArrayList<Resume>(storage);
+    public Resume[] getAllFromArray() {
+        return null;
+    }
+
+    @Override
+    public List<Resume> getAllFromList() {
+        return new ArrayList<>(storage);
+    }
+
+    @Override
+    public Map<String, Resume> getAllFromMap() {
+        return null;
     }
 }
