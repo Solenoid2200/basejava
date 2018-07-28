@@ -11,13 +11,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         storage[index] = resume;
     }
 
-    protected void deleteDeletedElement(int index, String uuid) {
-        fillDeletedElement(index);
-        storage[size - 1] = null;
-    }
-
-    protected abstract void fillDeletedElement(int index);
-
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
@@ -30,5 +23,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
+
+    protected void deleteDeletedElement(int index, String uuid) {
+        fillDeletedElement(index);
+        storage[size - 1] = null;
+    }
+
+    protected abstract void fillDeletedElement(int index);
 
 }

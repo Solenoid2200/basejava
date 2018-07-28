@@ -6,7 +6,7 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    public static final int STORAGE_LIMIT = 10000;
+    static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
 
     public void save(Resume resume) {
