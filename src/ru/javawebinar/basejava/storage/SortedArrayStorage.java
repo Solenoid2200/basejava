@@ -3,7 +3,6 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
@@ -19,11 +18,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int insertIdx = -index - 1;
         System.arraycopy(storage, insertIdx, storage, insertIdx + 1, size - insertIdx);
         storage[insertIdx] = resume;
-    }
-
-    @Override
-    public List<Resume> getAllFromList() {
-        return null;
     }
 
     @Override

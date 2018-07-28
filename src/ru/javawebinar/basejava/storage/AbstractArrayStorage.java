@@ -3,8 +3,6 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     public Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -29,18 +27,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[index];
     }
 
-    public Resume[] getAllFromArray() {
+    public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
-    }
-
-    @Override
-    public List<Resume> getAllFromList() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Resume> getAllFromMap() {
-        return null;
     }
 
 }

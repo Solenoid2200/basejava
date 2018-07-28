@@ -2,9 +2,9 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -45,18 +45,15 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAllFromArray() {
-        return null;
-    }
-
-    @Override
-    public List<Resume> getAllFromList() {
-        return null;
-    }
-
-    @Override
-    public Map<String, Resume> getAllFromMap() {
-        Map result = Collections.synchronizedMap(storage);
+    public Resume[] getAll() {
+        Map<String, Resume> map = Collections.synchronizedMap(storage);
+        Resume[] result = new Resume[map.size()];
+        int count = 0;
+        for (Map.Entry<String, Resume> pair : map.entrySet()) {
+            result[count] = pair.getValue();
+            count++;
+        }
+        Arrays.sort(result);
         return result;
     }
 }

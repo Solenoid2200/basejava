@@ -5,9 +5,6 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.List;
-import java.util.Map;
-
 public abstract class AbstractStorage implements Storage {
     public static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
@@ -51,11 +48,7 @@ public abstract class AbstractStorage implements Storage {
 
     public abstract void clear();
 
-    public abstract Resume[] getAllFromArray();
-
-    public abstract List<Resume> getAllFromList();
-
-    public abstract Map<String, Resume> getAllFromMap();
+    public abstract Resume[] getAll();
 
     protected abstract int getIndex(String uuid);
 
