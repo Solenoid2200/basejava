@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
@@ -8,46 +9,48 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
-    public Map<String, Resume> storage = new HashMap<>();
+    public Map<String, Resume> map = new HashMap<>();
+
+    public void save(Resume resume) {
+        if (map.containsKey(resume.getUuid())) {
+            throw new ExistStorageException(resume.getUuid());
+        } else {
+            map.put(resume.getUuid(), resume);
+        }
+    }
 
     @Override
-    public int getIndex(String uuid) {
-        if (storage.containsKey(uuid)) {
+    public void updateIndex(int index, Resume resume) {
+        map.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    public void deleteDeletedElement(int index, String uuid) {
+        map.remove(uuid);
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
+
+    @Override
+    public Resume getResume(int index, String uuid) {
+        return map.get(uuid);
+    }
+
+    @Override
+    protected int getIndex(String uuid) {
+        if (map.containsKey(uuid)) {
             return 0;
         }
         return -1;
     }
 
     @Override
-    public void insertElement(Resume resume, int index) {
-        storage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    public void updateIndex(int index, Resume resume) {
-        storage.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    public void deleteDeletedElement(int index, String uuid) {
-        storage.remove(uuid);
-    }
-
-    @Override
-    public void clear() {
-        storage.clear();
-        size = 0;
-    }
-
-    @Override
-    public Resume getResume(int index, String uuid) {
-        return storage.get(uuid);
-    }
-
-    @Override
     public Resume[] getAll() {
-        Map<String, Resume> map = Collections.synchronizedMap(storage);
-        Resume[] result = new Resume[map.size()];
+        Map<String, Resume> mapCopy = Collections.synchronizedMap(map);
+        Resume[] result = new Resume[mapCopy.size()];
         int count = 0;
         for (Map.Entry<String, Resume> pair : map.entrySet()) {
             result[count] = pair.getValue();
@@ -55,5 +58,10 @@ public class MapStorage extends AbstractStorage {
         }
         Arrays.sort(result);
         return result;
+    }
+
+    @Override
+    public int size() {
+        return map.size();
     }
 }
