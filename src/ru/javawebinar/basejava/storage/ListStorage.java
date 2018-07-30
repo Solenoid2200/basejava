@@ -9,21 +9,17 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     private List<Resume> list = new ArrayList<>();
 
-    public void save(Resume resume) {
-        if (list.contains(resume)) {
-            throw new ExistStorageException(resume.getUuid());
-        } else {
+    public void doSave(Resume resume, int index) {
             list.add(resume);
-        }
     }
 
     @Override
-    public void updateIndex(int index, Resume resume) {
+    public void updateResume(int index, Resume resume) {
         list.set(index, resume);
     }
 
     @Override
-    public void deleteDeletedElement(int index, String uuid) {
+    public void doDelete(int index, String uuid) {
         list.remove(index);
     }
 
@@ -38,7 +34,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected int getKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;

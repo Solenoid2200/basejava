@@ -45,7 +45,7 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void testSaveSize() {
+    public void testSaveResumeAndCheckSize() {
         storage.save(RESUME_4);
         Assert.assertEquals(4, storage.size());
     }
@@ -69,7 +69,7 @@ public abstract class AbstractStorageTest {
 
     // delete()
     @Test
-    public void testDeleteSize() {
+    public void testDeleteResumeAndCheckSize() {
         storage.delete(UUID_3);
         Assert.assertEquals(2, storage.size());
     }
@@ -102,9 +102,8 @@ public abstract class AbstractStorageTest {
     public void testGetAll() {
         Resume[] array = storage.getAll();
         Assert.assertEquals(3, array.length);
-        Assert.assertEquals(RESUME_1, array[0]);
-        Assert.assertEquals(RESUME_2, array[1]);
-        Assert.assertEquals(RESUME_3, array[2]);
+        Resume[] expectedArray = {RESUME_1, RESUME_2, RESUME_3};
+        Assert.assertArrayEquals(array, expectedArray);
     }
 
     // size()

@@ -11,7 +11,7 @@ import java.util.Map;
 public class MapStorage extends AbstractStorage {
     public Map<String, Resume> map = new HashMap<>();
 
-    public void save(Resume resume) {
+    public void doSave(Resume resume, int index) {
         if (map.containsKey(resume.getUuid())) {
             throw new ExistStorageException(resume.getUuid());
         } else {
@@ -20,12 +20,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void updateIndex(int index, Resume resume) {
+    public void updateResume(int index, Resume resume) {
         map.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void deleteDeletedElement(int index, String uuid) {
+    public void doDelete(int index, String uuid) {
         map.remove(uuid);
     }
 
@@ -40,7 +40,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected int getKey(String uuid) {
         if (map.containsKey(uuid)) {
             return 0;
         }

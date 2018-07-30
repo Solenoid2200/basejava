@@ -8,20 +8,14 @@ import java.lang.reflect.Method;
 
 public class MainReflection {
 
-    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Resume resume = new Resume();
         Field field = resume.getClass().getDeclaredFields()[0];
-        System.out.println(resume);
-
+        field.setAccessible(true);
+        field.set(resume, "test_uuid");
         Class<? extends Resume> clazz = resume.getClass();
         Method method = clazz.getMethod("toString");
-        Object obj = null;
-        try {
-            obj = method.invoke(resume);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        System.out.println(obj);
+        System.out.println(method.invoke(resume));
     }
 }
 
