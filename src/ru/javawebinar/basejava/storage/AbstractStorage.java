@@ -5,13 +5,6 @@ import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    // Abstract methods from Interface Storage
-    public abstract void clear();
-
-    public abstract Resume[] getAll();
-
-    public abstract int size();
-
     // Abstract methods from "Implemented methods"
     protected abstract void doSave(Resume r, int index);
 
