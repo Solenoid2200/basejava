@@ -19,7 +19,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public void updateResume(int index, Resume resume) {
+    public void doUpdateResume(int index, Resume resume) {
         storage[index] = resume;
     }
 
@@ -28,7 +28,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public Resume getResume(int index, String uuid) {
+    public Resume doGetResume(int index, String uuid) {
         return storage[index];
     }
 
