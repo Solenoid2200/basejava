@@ -103,7 +103,7 @@ public abstract class AbstractStorageTest {
         Resume[] array = storage.getAll();
         Assert.assertEquals(3, array.length);
         Resume[] expectedArray = {RESUME_1, RESUME_2, RESUME_3};
-        Assert.assertArrayEquals(array, expectedArray);
+        Assert.assertArrayEquals(expectedArray, array);
     }
 
     // size()
