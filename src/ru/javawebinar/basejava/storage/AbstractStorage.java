@@ -6,7 +6,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
     // Abstract methods from "Implemented methods"
-    protected abstract void doSave(Resume r, int index);
+    protected abstract void doSave(Resume resume, int index);
 
     protected abstract void doUpdateResume(int index, Resume resume);
 
