@@ -8,9 +8,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class MapStorage extends AbstractStorage {
-    public Map<String, Resume> map = new HashMap<>();
+    private Map<String, Resume> map = new HashMap<>();
 
     public void doSave(int index, Resume resume) {
         if (map.containsKey(resume.getUuid())) {
@@ -52,14 +51,11 @@ public class MapStorage extends AbstractStorage {
     public Resume[] getAll() {
         Map<String, Resume> mapCopy = Collections.synchronizedMap(map);
         Resume[] result = new Resume[mapCopy.size()];
-        int count = 0;
-        for (Map.Entry<String, Resume> pair : map.entrySet()) {
-            result[count] = pair.getValue();
-            count++;
-        }
+        result = mapCopy.values().toArray(result);
         Arrays.sort(result);
         return result;
     }
+
 
     @Override
     public int size() {
