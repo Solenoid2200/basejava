@@ -11,7 +11,7 @@ import java.util.Map;
 public class MapStorage extends AbstractStorage {
     public Map<String, Resume> map = new HashMap<>();
 
-    public void doSave(Resume resume, int index) {
+    public void doSave(int index, Resume resume) {
         if (map.containsKey(resume.getUuid())) {
             throw new ExistStorageException(resume.getUuid());
         } else {

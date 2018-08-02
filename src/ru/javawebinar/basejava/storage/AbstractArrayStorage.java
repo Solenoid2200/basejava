@@ -10,7 +10,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static int size = 0;
     public Resume[] storage = new Resume[STORAGE_LIMIT];
 
-    public void doSave(Resume resume, int index) {
+    public void doSave(int index, Resume resume) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {

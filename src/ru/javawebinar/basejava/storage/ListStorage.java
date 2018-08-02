@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     private List<Resume> list = new ArrayList<>();
 
-    public void doSave(Resume resume, int index) {
-            list.add(resume);
+    public void doSave(int index, Resume resume) {
+        list.add(resume);
     }
 
     @Override

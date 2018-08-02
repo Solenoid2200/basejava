@@ -6,7 +6,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
     // Abstract methods from "Implemented methods"
-    protected abstract void doSave(Resume resume, int index);
+    protected abstract void doSave(int index, Resume resume);
 
     protected abstract void doUpdate(int index, Resume resume);
 
@@ -19,19 +19,22 @@ public abstract class AbstractStorage implements Storage {
     // Implemented methods
     public void save(Resume resume) {
         int index = getKeyIfNotExist(resume.getUuid());
-        doSave(resume, index);
+        doSave(index, resume);
     }
 
     public void update(Resume resume) {
-        doUpdate(getKeyIfExist(resume.getUuid()), resume);
+        int index = getKeyIfExist(resume.getUuid());
+        doUpdate(index, resume);
     }
 
     public void delete(String uuid) {
-        doDelete(getKeyIfExist(uuid), uuid);
+        int index = getKeyIfExist(uuid);
+        doDelete(index, uuid);
     }
 
     public Resume get(String uuid) {
-        return doGet(getKeyIfExist(uuid), uuid);
+        int index = getKeyIfExist(uuid);
+        return doGet(index, uuid);
     }
 
     // Private methods
