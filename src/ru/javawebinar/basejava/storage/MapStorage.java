@@ -20,7 +20,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void doUpdateResume(int index, Resume resume) {
+    public void doUpdate(int index, Resume resume) {
         map.put(resume.getUuid(), resume);
     }
 
@@ -35,7 +35,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume doGetResume(int index, String uuid) {
+    public Resume doGet(int index, String uuid) {
         return map.get(uuid);
     }
 
