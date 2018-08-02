@@ -11,7 +11,7 @@ public class MapStorage extends AbstractStorage {
     private Map<String, Resume> map = new HashMap<>();
 
     public void doSave(int index, Resume resume) {
-            map.put(resume.getUuid(), resume);
+        map.put(resume.getUuid(), resume);
     }
 
     @Override
