@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class MapStorage extends AbstractStorage {
     public Map<String, Resume> map = new HashMap<>();
 
