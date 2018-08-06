@@ -7,16 +7,14 @@ import ru.javawebinar.basejava.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
-/**
- * Test for ru.javawebinar.basejava.storage.ArrayStorage
- */
 public class MainArray {
     private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Resume r;
+        Resume resume;
         while (true) {
             System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | update uuid | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
@@ -36,13 +34,13 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(uuid);
-                    ARRAY_STORAGE.save(r);
+                    resume = new Resume(uuid);
+                    ARRAY_STORAGE.save(resume);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(uuid);
-                    ARRAY_STORAGE.update(r);
+                    resume = new Resume(uuid);
+                    ARRAY_STORAGE.update(resume);
                     printAll();
                     break;
                 case "delete":
@@ -65,14 +63,14 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
+    private static void printAll() {
+        List<Resume> list = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
-        if (all.length == 0) {
+        if (list.size() == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume r : all) {
-                System.out.println(r);
+            for (Resume resume : list) {
+                System.out.println(resume);
             }
         }
         System.out.println("----------------------------");
