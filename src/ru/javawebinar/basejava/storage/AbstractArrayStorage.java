@@ -4,14 +4,16 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
-
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     int size = 0;
+
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume resume, int index);
 
     public int size() {
         return size;
@@ -25,13 +27,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected void doUpdate(Resume resume, Object index) {
         storage[(Integer) index] = resume;
-    }
-
-    public List<Resume> getAllSorted() {
-        Resume[] array = Arrays.copyOfRange(storage, 0, size);
-        List<Resume> list = Arrays.asList(array);
-        Collections.sort(list);
-        return list;
     }
 
     @Override
@@ -56,13 +51,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
+    public List<Resume> doGetAllSorted() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+    }
+
+    @Override
     protected boolean isExist(Object index) {
         return (Integer) index >= 0;
     }
 
-    protected abstract void fillDeletedElement(int index);
-
-    protected abstract void insertElement(Resume resume, int index);
-
-    protected abstract Integer getSearchKey(String uuid);
 }

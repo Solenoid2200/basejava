@@ -42,6 +42,11 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
+    protected List<Resume> doGetAllSorted() {
+        return new ArrayList<>(map.values());
+    }
+
+    @Override
     protected void doDelete(Object searchKey) {
         map.remove(((Resume) searchKey).getUuid());
     }
