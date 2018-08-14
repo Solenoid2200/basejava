@@ -40,7 +40,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> doGetAllSorted() {
-        return list;
+        return new ArrayList<>(list);
     }
 
     @Override
@@ -51,11 +51,6 @@ public class ListStorage extends AbstractStorage {
     @Override
     public void clear() {
         list.clear();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return new ArrayList<>(list);
     }
 
     @Override

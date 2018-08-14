@@ -57,11 +57,6 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        return new ArrayList<>(map.values());
-    }
-
-    @Override
     public int size() {
         return map.size();
     }
