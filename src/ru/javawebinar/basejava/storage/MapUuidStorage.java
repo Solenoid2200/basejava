@@ -12,10 +12,7 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected String getSearchKey(String uuid) {
-            if (map.containsKey(uuid)) {
-                return uuid;
-            }
-        return null;
+        return uuid;
     }
 
     @Override
@@ -34,14 +31,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        for (Map.Entry<String, Resume> pair : map.entrySet()) {
-            String key = pair.getKey();
-            if (key.equals(searchKey)) {
-                return pair.getValue();
-            }
-        }
-        return null;
+    protected Resume doGet(Object uuid) {
+        return map.get((String) uuid);
     }
 
     @Override
