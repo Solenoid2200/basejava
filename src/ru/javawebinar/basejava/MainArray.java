@@ -9,22 +9,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * Test for ru.javawebinar.basejava.storage.ArrayStorage
+ */
 public class MainArray {
     private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Resume resume;
+        Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save uuid | delete uuid | get uuid | update uuid | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save fullName | delete uuid | get uuid | update uuid fullName | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
-            if (params.length < 1 || params.length > 2) {
+            if (params.length < 1 || params.length > 3) {
                 System.out.println("Неверная команда.");
                 continue;
             }
-            String uuid = null;
-            if (params.length == 2) {
-                uuid = params[1].intern();
+            String param = null;
+            if (params.length > 1) {
+                param = params[1].intern();
             }
             switch (params[0]) {
                 case "list":
@@ -34,21 +37,21 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    resume = new Resume(uuid);
-                    ARRAY_STORAGE.save(resume);
+                    r = new Resume(param);
+                    ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    resume = new Resume(uuid);
-                    ARRAY_STORAGE.update(resume);
+                    r = new Resume(param, params[2]);
+                    ARRAY_STORAGE.update(r);
                     printAll();
                     break;
                 case "delete":
-                    ARRAY_STORAGE.delete(uuid);
+                    ARRAY_STORAGE.delete(param);
                     printAll();
                     break;
                 case "get":
-                    System.out.println(ARRAY_STORAGE.get(uuid));
+                    System.out.println(ARRAY_STORAGE.get(param));
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
@@ -63,14 +66,14 @@ public class MainArray {
         }
     }
 
-    private static void printAll() {
-        List<Resume> list = ARRAY_STORAGE.getAllSorted();
+    static void printAll() {
+        List<Resume> all = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
-        if (list.size() == 0) {
+        if (all.size() == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume resume : list) {
-                System.out.println(resume);
+            for (Resume r : all) {
+                System.out.println(r);
             }
         }
         System.out.println("----------------------------");

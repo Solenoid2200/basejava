@@ -16,39 +16,28 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        map.put(((Resume) searchKey).getUuid(), resume);
+    protected void doUpdate(Resume r, Object resume) {
+        map.put(r.getUuid(), r);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return searchKey != null;
+    protected boolean isExist(Object resume) {
+        return resume != null;
     }
 
     @Override
-    protected void doSave(Resume resume, Object searchKey) {
-        map.put(resume.getUuid(), resume);
+    protected void doSave(Resume r, Object resume) {
+        map.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        for (Map.Entry<String, Resume> pair : map.entrySet()) {
-            String key = pair.getKey();
-            if (key.equals(((Resume) searchKey).getUuid())) {
-                return pair.getValue();
-            }
-        }
-        return null;
+    protected Resume doGet(Object resume) {
+        return (Resume) resume;
     }
 
     @Override
-    protected List<Resume> doGetAllSorted() {
-        return new ArrayList<>(map.values());
-    }
-
-    @Override
-    protected void doDelete(Object searchKey) {
-        map.remove(((Resume) searchKey).getUuid());
+    protected void doDelete(Object resume) {
+        map.remove(((Resume) resume).getUuid());
     }
 
     @Override
@@ -57,7 +46,13 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    @Override
     public int size() {
         return map.size();
     }
 }
+
