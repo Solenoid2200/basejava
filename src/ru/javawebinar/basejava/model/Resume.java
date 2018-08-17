@@ -1,60 +1,82 @@
 package ru.javawebinar.basejava.model;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * ru.javawebinar.basejava.model.Resume class
- */
 public class Resume implements Comparable<Resume> {
 
-    // Unique identifier
     private final String uuid;
-
     private final String fullName;
+    private final Map<Contact, String> contactMap = new EnumMap<Contact, String>(Contact.class);
+    private final Map<Section, Content> sectionMap = new EnumMap<Section, Content>(Section.class);
 
-    public Resume(String fullName) {
-        this(UUID.randomUUID().toString(), fullName);
+
+    // Constructors
+    public Resume() {
+        this(UUID.randomUUID().toString());
+    }
+
+    public Resume(String uuid) {
+        this.uuid = uuid;
+        this.fullName = "Dummy";
     }
 
     public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid, "uuid must not be null");
-        Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
 
+    // Get-methods
+    public String getContact(Contact contact) {
+        return contactMap.get(contact);
+    }
+
+    public Content getSection(Section section) {
+        return sectionMap.get(section);
+    }
+
+    // Getters
     public String getUuid() {
         return uuid;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    // equals() & hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Resume)) return false;
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
-
+        return Objects.equals(getUuid(), resume.getUuid()) &&
+                Objects.equals(getFullName(), resume.getFullName());
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        return result;
+        return Objects.hash(getUuid(), getFullName());
     }
 
+    // toString()
     @Override
     public String toString() {
-        return uuid + '(' + fullName + ')';
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 
     @Override
-    public int compareTo(Resume o) {
-        int cmp = fullName.compareTo(o.fullName);
-        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
+    public int compareTo(Resume resume) {
+        int result = fullName.compareTo(resume.fullName);
+        if(result != 0) {
+            return result;
+        }
+        return uuid.compareTo(resume.uuid);
     }
+
 }
