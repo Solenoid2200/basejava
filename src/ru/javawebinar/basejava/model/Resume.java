@@ -37,33 +37,22 @@ public class Resume implements Comparable<Resume> {
         return sections;
     }
 
-    // Get-methods
-    public String getContact(ContactType type) {
-        return contacts.get(type);
-    }
-
-    public Section getSection(SectionType type) {
-        return sections.get(type);
-    }
 
     // equals() & hashCode()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Resume)) return false;
         Resume resume = (Resume) o;
-
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
-
+        return Objects.equals(getUuid(), resume.getUuid()) &&
+                Objects.equals(fullName, resume.fullName) &&
+                Objects.equals(getContacts(), resume.getContacts()) &&
+                Objects.equals(getSections(), resume.getSections());
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
-        return result;
+        return Objects.hash(getUuid(), fullName, getContacts(), getSections());
     }
 
     @Override
@@ -73,7 +62,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        int cmp = fullName.compareTo(o.fullName);
-        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
+        int compare = fullName.compareTo(o.fullName);
+        return compare != 0 ? compare : uuid.compareTo(o.uuid);
     }
 }
