@@ -5,12 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * com.urise.webapp.model.Resume class
- */
 public class Resume implements Comparable<Resume> {
 
-    // Unique identifier
     private final String uuid;
 
     private final String fullName;
@@ -29,16 +25,29 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public String getUuid() {
-        return uuid;
-    }
-
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
     public Section getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    // Getters & setters
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
     }
 
     @Override

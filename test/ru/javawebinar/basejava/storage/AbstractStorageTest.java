@@ -4,8 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +33,52 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, "Name2");
         RESUME_3 = new Resume(UUID_3, "Name3");
         RESUME_4 = new Resume(UUID_4, "Name4");
+        fillResume();
+    }
+
+    private static void fillResume() {
+        Resume resume = new Resume("uuid5", "Ivanov");
+        // Fill contacts
+        resume.getContacts().put(ContactType.PHONE, "32223332323");
+        resume.getContacts().put(ContactType.SKYPE, "IvanovSkype");
+        resume.getContacts().put(ContactType.MAIL, "ivanov@mail.ru");
+
+        // Fill sections
+        resume.getSections().put(SectionType.PERSONAL, new TextSection("Целеустремлённый"));
+        resume.getSections().put(SectionType.OBJECTIVE, new TextSection("Изучаю Java"));
+
+        List<String> itemsAchievement = new ArrayList<>();
+        itemsAchievement.add("Достижение1");
+        itemsAchievement.add("Достижение2");
+        resume.getSections().put(SectionType.ACHIEVEMENT, new ListSection(itemsAchievement));
+
+        List<String> itemsQualifications = new ArrayList<>();
+        itemsQualifications.add("Квалификация1");
+        itemsQualifications.add("Квалификация2");
+        resume.getSections().put(SectionType.QUALIFICATIONS, new ListSection(itemsQualifications));
+
+        LocalDate startDate = LocalDate.of(2018, Month.JUNE, 26);
+        LocalDate endDate = LocalDate.of(2018, Month.DECEMBER, 26);
+        String description = "Kislin-kurs";
+        OrganizationUnit organizationUnit = new OrganizationUnit(startDate, endDate, description);
+        List<OrganizationUnit> organizationUnits = new ArrayList<>();
+        organizationUnits.add(organizationUnit);
+        List<Organization> educations = new ArrayList<>();
+        educations.add(new Organization("JavaOPs", "http://javaops.ru/",
+                "JavaKurs", organizationUnits));
+        resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(educations));
+
+        startDate = LocalDate.of(2017, Month.JUNE, 26);
+        endDate = LocalDate.of(2017, Month.DECEMBER, 26);
+        description = "JavaRush";
+        organizationUnit = new OrganizationUnit(startDate, endDate, description);
+        organizationUnits.add(organizationUnit);
+        List<Organization> experiences = new ArrayList<>();
+        educations.add(new Organization("JavaRush", "http://javarush.ru/",
+                "JavaKurs", organizationUnits));
+        resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(educations));
+        resume.getSections().put(SectionType.EXPERIENCE, new OrganizationSection(experiences));
+
     }
 
     AbstractStorageTest(Storage storage) {
@@ -64,8 +113,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        Resume newResume = new Resume(UUID_4, "New Name");
-        storage.update(newResume);
+        storage.get("dummy");
     }
 
     @Test
@@ -96,7 +144,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete("UUID_4");
+        storage.delete("dummy");
     }
 
     @Test
@@ -111,8 +159,8 @@ public abstract class AbstractStorageTest {
         storage.get("dummy");
     }
 
-    private void assertGet(Resume resume) {
-        assertEquals(resume, storage.get(resume.getUuid()));
+    private void assertGet(Resume r) {
+        assertEquals(r, storage.get(r.getUuid()));
     }
 
     private void assertSize(int size) {
