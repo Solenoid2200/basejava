@@ -3,6 +3,10 @@ package ru.javawebinar.basejava.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * gkislin
+ * 19.07.2016
+ */
 public class Organization {
     private final Link homePage;
 
