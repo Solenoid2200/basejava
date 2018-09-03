@@ -33,16 +33,14 @@ public class Main {
         LocalDate startDate = LocalDate.of(2018, Month.JUNE, 26);
         LocalDate endDate = LocalDate.of(2018, Month.DECEMBER, 26);
         educations.add(new Organization("JavaOPs", "http://javaops.ru/",
-                startDate, endDate,
-                "JavaKurs", "Kislin-Kurs"));
+                "JavaKurs", new ArrayList<OrganizationUnit>()));
         resume.getSections().put(SectionType.EDUCATION, new OrganizationSection(educations));
 
         List<Organization> experiences = new ArrayList<>();
         LocalDate startDateExperiences = LocalDate.of(2017, Month.JUNE, 26);
         LocalDate endDateExperiences = LocalDate.of(2017, Month.DECEMBER, 26);
         experiences.add(new Organization("Job", "http://ivanov-job-java.ru/",
-                startDateExperiences, endDateExperiences,
-                "Job1", "Bad Job"));
+                "Job1", new ArrayList<OrganizationUnit>()));
         resume.getSections().put(SectionType.EXPERIENCE, new OrganizationSection(experiences));
     }
 }
