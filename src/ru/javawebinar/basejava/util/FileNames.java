@@ -13,7 +13,7 @@ public class FileNames {
             if (file.isDirectory()) {
                 printAllFiles(file);
             } else {
-                System.out.println(file.getAbsolutePath());
+                System.out.println(file.getName());
             }
         }
     }

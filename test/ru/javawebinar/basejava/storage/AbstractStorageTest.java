@@ -59,8 +59,9 @@ public abstract class AbstractStorageTest {
 
         LocalDate startDate = LocalDate.of(2018, Month.JUNE, 26);
         LocalDate endDate = LocalDate.of(2018, Month.DECEMBER, 26);
+        String title = "Title";
         String description = "Kislin-kurs";
-        OrganizationUnit organizationUnit = new OrganizationUnit(startDate, endDate, description);
+        OrganizationUnit organizationUnit = new OrganizationUnit(startDate, endDate, title, description);
         List<OrganizationUnit> organizationUnits = new ArrayList<>();
         organizationUnits.add(organizationUnit);
         List<Organization> educations = new ArrayList<>();
@@ -71,7 +72,7 @@ public abstract class AbstractStorageTest {
         startDate = LocalDate.of(2017, Month.JUNE, 26);
         endDate = LocalDate.of(2017, Month.DECEMBER, 26);
         description = "JavaRush";
-        organizationUnit = new OrganizationUnit(startDate, endDate, description);
+        organizationUnit = new OrganizationUnit(startDate, endDate, title, description);
         organizationUnits.add(organizationUnit);
         List<Organization> experiences = new ArrayList<>();
         educations.add(new Organization("JavaRush", "http://javarush.ru/",
