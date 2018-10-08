@@ -20,9 +20,7 @@ public class ObjectStreamStorageSerializator implements Serializator {
     public Resume doRead(InputStream is) {
         try (ObjectInputStream ois = new ObjectInputStream(is)) {
             return (Resume) ois.readObject();
-        } catch (ClassNotFoundException e) {
-            throw new StorageException("Error read resume", null, e);
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new StorageException("Error read resume", null, e);
         }
     }
