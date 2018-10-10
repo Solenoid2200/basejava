@@ -13,44 +13,44 @@ public class DataStreamSerializer implements StreamSerializer {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {
-        try (DataOutputStream dos = new DataOutputStream ( os )) {
-            dos.writeUTF ( r.getUuid ( ) );
-            dos.writeUTF ( r.getFullName ( ) );
-            Map<ContactType, String> contacts = r.getContacts ( );
-            writeCollection ( dos, contacts.entrySet ( ), entry -> {
-                dos.writeUTF ( entry.getKey ( ).name ( ) );
-                dos.writeUTF ( entry.getValue ( ) );
-            } );
+        try (DataOutputStream dos = new DataOutputStream(os)) {
+            dos.writeUTF(r.getUuid());
+            dos.writeUTF(r.getFullName());
+            Map<ContactType, String> contacts = r.getContacts();
+            writeCollection(dos, contacts.entrySet(), entry -> {
+                dos.writeUTF(entry.getKey().name());
+                dos.writeUTF(entry.getValue());
+            });
 
-            Map<SectionType, Section> sections = r.getSections ( );
-            writeCollection ( dos, sections.entrySet ( ), entry -> {
-                SectionType type = entry.getKey ( );
-                dos.writeUTF ( type.name ( ) );
-                Section section = entry.getValue ( );
+            Map<SectionType, Section> sections = r.getSections();
+            writeCollection(dos, sections.entrySet(), entry -> {
+                SectionType type = entry.getKey();
+                dos.writeUTF(type.name());
+                Section section = entry.getValue();
                 switch (type) {
                     case PERSONAL:
                     case OBJECTIVE:
-                        dos.writeUTF ( ((TextSection) section).getContent ( ) );
+                        dos.writeUTF(((TextSection) section).getContent());
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        writeCollection ( dos, ((ListSection) section).getItems ( ), dos::writeUTF );
+                        writeCollection(dos, ((ListSection) section).getItems(), dos::writeUTF);
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        writeCollection ( dos, ((OrganizationSection) section).getOrganizations ( ), organization -> {
-                            dos.writeUTF ( organization.getHomePage ( ).getName ( ) );
-                            dos.writeUTF ( organization.getHomePage ( ).getUrl ( ) );
-                            writeCollection ( dos, organization.getPositions ( ), position -> {
-                                dos.writeUTF ( position.getStartDate ( ).toString ( ) );
-                                dos.writeUTF ( position.getEndDate ( ).toString ( ) );
-                                dos.writeUTF ( position.getTitle ( ) );
-                                dos.writeUTF ( position.getDescription ( ) );
-                            } );
-                        } );
+                        writeCollection(dos, ((OrganizationSection) section).getOrganizations(), organization -> {
+                            dos.writeUTF(organization.getHomePage().getName());
+                            dos.writeUTF(organization.getHomePage().getUrl());
+                            writeCollection(dos, organization.getPositions(), position -> {
+                                dos.writeUTF(position.getStartDate().toString());
+                                dos.writeUTF(position.getEndDate().toString());
+                                dos.writeUTF(position.getTitle());
+                                dos.writeUTF(position.getDescription());
+                            });
+                        });
                         break;
                 }
-            } );
+            });
         }
     }
 
@@ -61,23 +61,23 @@ public class DataStreamSerializer implements StreamSerializer {
     private <T> void writeCollection(DataOutputStream dos,
                                      Collection<T> collection,
                                      CollectionWriter<T> collectionWriter) throws IOException {
-        dos.writeInt ( collection.size ( ) );
+        dos.writeInt(collection.size());
         for (T t : collection) {
-            collectionWriter.write ( t );
+            collectionWriter.write(t);
         }
     }
 
     @Override
     public Resume doRead(InputStream is) throws IOException {
-        try (DataInputStream dis = new DataInputStream ( is )) {
-            String uuid = dis.readUTF ( );
-            String fullName = dis.readUTF ( );
-            Resume resume = new Resume ( uuid, fullName );
-            readCollection ( dis, () -> resume.addContact ( ContactType.valueOf ( dis.readUTF ( ) ), dis.readUTF ( ) ) );
+        try (DataInputStream dis = new DataInputStream(is)) {
+            String uuid = dis.readUTF();
+            String fullName = dis.readUTF();
+            Resume resume = new Resume(uuid, fullName);
+            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
 
-            readCollection ( dis, () -> {
-                        SectionType sectionType = SectionType.valueOf ( dis.readUTF ( ) );
-                        resume.addSection ( sectionType, readSection ( dis, sectionType ) );
+            readCollection(dis, () -> {
+                        SectionType sectionType = SectionType.valueOf(dis.readUTF());
+                        resume.addSection(sectionType, readSection(dis, sectionType));
                     }
             );
             return resume;
@@ -89,9 +89,9 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void readCollection(DataInputStream dis, CollectionReadable collectionReadable) throws IOException {
-        int size = dis.readInt ( );
+        int size = dis.readInt();
         for (int i = 0; i < size; i++) {
-            collectionReadable.read ( );
+            collectionReadable.read();
         }
     }
 
@@ -99,35 +99,42 @@ public class DataStreamSerializer implements StreamSerializer {
         switch (sectionType) {
             case PERSONAL:
             case OBJECTIVE:
-                return new TextSection ( dis.readUTF ( ) );
+                return new TextSection(dis.readUTF());
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                int size = dis.readInt ( );
-                List<String> items = new ArrayList<> ( size );
-                for (int i = 0; i < size; i++) {
-                    items.add ( dis.readUTF ( ) );
-                }
-                return new ListSection ( items );
+                return new ListSection(readList(dis, dis::readUTF));
             case EXPERIENCE:
             case EDUCATION:
-                int size2 = dis.readInt ( );
-                List<Organization> organizations = new ArrayList<> ( size2 );
-                for (int i = 0; i < size2; i++) {
-                    Link link = new Link ( dis.readUTF ( ), dis.readUTF ( ) );
-                    int size3 = dis.readInt ( );
-                    List<Organization.Position> positions = new ArrayList<> ( size3 );
-                    for (int j = 0; j < size3; j++) {
-                        Organization.Position position = new Organization.Position (
-                                LocalDate.parse ( dis.readUTF ( ) ), LocalDate.parse ( dis.readUTF ( ) ),
-                                dis.readUTF ( ), dis.readUTF ( ) );
-                        positions.add ( position );
-                    }
-                    organizations.add ( new Organization ( link, positions ) );
-                }
-                return new OrganizationSection ( organizations );
+                return new OrganizationSection(
+                        readList(dis, () ->
+                                new Organization(
+                                        new Link(dis.readUTF(), dis.readUTF()), readList(dis, () ->
+                                        new Organization.Position(
+                                                LocalDate.parse(dis.readUTF()),
+                                                LocalDate.parse(dis.readUTF()),
+                                                dis.readUTF(),
+                                                dis.readUTF()
+                                        )
+                                )
+                                )
+                        )
+                );
             default:
-                throw new IllegalStateException ( );
+                throw new IllegalStateException();
         }
+    }
+
+    private interface ListReader<T> {
+        T read() throws IOException;
+    }
+
+    private <T> List<T> readList(DataInputStream dis, ListReader<T> reader) throws IOException {
+        int size = dis.readInt();
+        List<T> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(reader.read());
+        }
+        return list;
     }
 
 }
