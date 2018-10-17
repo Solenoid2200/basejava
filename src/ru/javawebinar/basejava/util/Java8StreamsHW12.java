@@ -9,7 +9,7 @@ public class Java8StreamsHW12 {
 
     public static void main(String[] args) {
         // HW 12.1
-        int array1[] = new int[]{1,2,3,3,2,3};
+        int array1[] = new int[]{1, 2, 3, 3, 2, 3};
         int array2[] = new int[]{9, 8};
         System.out.println(minValue(array1));
         System.out.println(minValue(array2));
@@ -23,25 +23,12 @@ public class Java8StreamsHW12 {
     }
 
     static int minValue(int[] values) {
-        List<Integer> list = Arrays.stream(values).boxed().collect(Collectors.toList());
-        List<Integer> distinct = list.stream().distinct().sorted().collect(Collectors.toList());
-        String string = "";
-        for (int i = 0; i < distinct.size(); i++) {
-            string = string + distinct.get(i);
-        }
-        return Integer.valueOf(string);
+        return Arrays.stream(values).distinct().sorted().reduce((a, b) -> a * 10 + b).getAsInt();
     }
 
     static List<Integer> oddOrEven(List<Integer> integers) {
-
-        return integers.stream()
-                .filter( s ->
-                        (
-                                s%2 == 0 && integers.stream().mapToInt(i -> i.intValue()).sum() %2 != 0
-                                        ||
-                                        s%2 != 0 && integers.stream().mapToInt(i -> i.intValue()).sum() %2 == 0
-                        )
-                )
+        int summ = integers.stream().mapToInt(i -> i.intValue()).sum();
+        return integers.stream().filter(s -> (s % 2 == 0 && summ % 2 != 0 || s % 2 != 0 && summ % 2 == 0))
                 .collect(Collectors.toList());
     }
 
